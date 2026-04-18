@@ -13,8 +13,10 @@ class RouteSerializer(serializers.ModelSerializer):
         fields="__all__"
 
 class BookSerializer(serializers.ModelSerializer):
+    total_price=serializers.ReadOnlyField()
     class Meta:
         model=Book
-        fields="__all__"
+        fields=['mode','route','passengers','total_price']
+        read_only_fields=['total_price']
 
 
