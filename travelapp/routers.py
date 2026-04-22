@@ -5,6 +5,7 @@ from .viewsets import *
 
 routers=DefaultRouter()
 routers.register('modes/',Modeviewset),
+routers.register('modetype/',ModeTypeviewset),
 routers.register('routes/',Routeviewset),
 routers.register('bookings/',Bookviewset)
 
