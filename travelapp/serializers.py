@@ -31,12 +31,13 @@ class SeatSerializer(serializers.ModelSerializer):
     confirmation=serializers.ReadOnlyField()
     class Meta:
         model=Seat
-        fields=['route','seat_no','is_booked','confirmation']
+        fields=['route','seat_no','confirmation']
         validators=[]
 
     def validate(self,data):
         seat_no=data.get('seat_no')
         route=data.get('route')
+        mode=data.get('mode')
 
         qs=Seat.objects.filter(route=route,seat_no=seat_no)
 

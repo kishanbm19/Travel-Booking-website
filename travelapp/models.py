@@ -47,7 +47,7 @@ class Book(models.Model):
 
     total_price=models.IntegerField(null=True)
     passengers=models.IntegerField(default=1)
-    seat=models.ManyToManyField(Seat)
+    seat=models.ForeignKey(Seat,on_delete=models.CASCADE,null=True,blank=True)
    
     def __str__(self):
         return f"{self.seat_no} "
