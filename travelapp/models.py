@@ -28,12 +28,13 @@ class Route(models.Model):
             return f"{self.source} --> {self.destination} | Via: {self.via}"
         return f"{self.source} --> {self.destination}"
 class Seat(models.Model):
+    mode=models.ForeignKey(ModeType,on_delete=models.CASCADE,null=True)
     route=models.ForeignKey(Route,on_delete=models.CASCADE)
     seat_no=models.CharField(max_length=10)
     is_booked=models.BooleanField(default=False)
     
     class Meta:
-        unique_together=['route','seat_no']
+        unique_together=['route','seat_no','mode']
     def confirmation(self):
         if(self.is_booked):
             return f"Seat  {self.seat_no} is booked "
@@ -49,8 +50,6 @@ class Book(models.Model):
     passengers=models.IntegerField(default=1)
     seat=models.ForeignKey(Seat,on_delete=models.CASCADE,null=True,blank=True)
    
-    def __str__(self):
-        return f"{self.seat_no} "
 
     def calculate_price(self):
         return self.mode.price_per_km*self.route.distance*self.passengers
@@ -63,7 +62,7 @@ class Book(models.Model):
         return f"Your ticket for {self.route} is successfully booked"
 
     def __str__(self):
-        return f"{self.passengers} passengers in {self.mode}"
+        return f"{self.seat}"
 
 
 

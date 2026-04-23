@@ -31,15 +31,16 @@ class SeatSerializer(serializers.ModelSerializer):
     confirmation=serializers.ReadOnlyField()
     class Meta:
         model=Seat
-        fields=['route','seat_no','confirmation']
+        fields=['mode','route','is_booked','seat_no','confirmation']
         validators=[]
+        write_only_fields=['mode']
 
     def validate(self,data):
         seat_no=data.get('seat_no')
         route=data.get('route')
         mode=data.get('mode')
 
-        qs=Seat.objects.filter(route=route,seat_no=seat_no)
+        qs=Seat.objects.filter(mode=mode,route=route,seat_no=seat_no)
 
         if (qs.exists()):
             raise serializers.ValidationError(
