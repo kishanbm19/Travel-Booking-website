@@ -21,9 +21,31 @@ class BookSerializer(serializers.ModelSerializer):
     total_price=serializers.ReadOnlyField()
     message=serializers.ReadOnlyField()
     
+    
     class Meta:
         model=Book
-        fields=['mode','route','passengers','total_price','seat_no','message']
-        read_only_fields=['total_price','message']
+        fields=['mode','route','passengers','total_price','seat','message']
+        read_only_fields=['total_price','message','confirmation']
+
+class SeatSerializer(serializers.ModelSerializer):
+    confirmation=serializers.ReadOnlyField()
+    class Meta:
+        model=Seat
+        fields=['route','seat_no','is_booked','confirmation']
+        validators=[]
+
+    def validate(self,data):
+        seat_no=data.get('seat_no')
+        route=data.get('route')
+
+        qs=Seat.objects.filter(route=route,seat_no=seat_no)
+
+        if (qs.exists()):
+            raise serializers.ValidationError(
+                f"Seat {seat_no} is not available"            )
+        return data
+
+
+
 
 

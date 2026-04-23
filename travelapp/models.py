@@ -27,6 +27,19 @@ class Route(models.Model):
         if self.via:
             return f"{self.source} --> {self.destination} | Via: {self.via}"
         return f"{self.source} --> {self.destination}"
+class Seat(models.Model):
+    route=models.ForeignKey(Route,on_delete=models.CASCADE)
+    seat_no=models.CharField(max_length=10)
+    is_booked=models.BooleanField(default=False)
+    
+    class Meta:
+        unique_together=['route','seat_no']
+    def confirmation(self):
+        if(self.is_booked):
+            return f"Seat  {self.seat_no} is booked "
+        
+    def __str__(self):
+        return f"{self.seat_no} "
     
 class Book(models.Model):
     mode=models.ForeignKey(ModeType,on_delete=models.CASCADE)
@@ -34,13 +47,8 @@ class Book(models.Model):
 
     total_price=models.IntegerField(null=True)
     passengers=models.IntegerField(default=1)
-    seat_no=models.CharField(max_length=10)
-    is_booked=models.BooleanField(default=False)
-    
-    def confirmation(self):
-        if(self.is_booked):
-            return f"Seat  {self.seat_no} is booked "
-        return f"Seat Not available"
+    seat=models.ManyToManyField(Seat)
+   
     def __str__(self):
         return f"{self.seat_no} "
 
@@ -58,17 +66,7 @@ class Book(models.Model):
         return f"{self.passengers} passengers in {self.mode}"
 
 
-class Seat(models.Model):
-    route=models.ForeignKey(Route,on_delete=models.CASCADE)
-    seat_no=models.CharField(max_length=10)
-    is_booked=models.BooleanField(default=False)
-    
-    def confirmation(self):
-        if(self.is_booked):
-            return f"Seat  {self.seat_no} is booked "
-        return f"Seat Not available"
-    def __str__(self):
-        return f"{self.seat_no} "
+
     
 
 

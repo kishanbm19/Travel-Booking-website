@@ -18,3 +18,7 @@ class Routeviewset(viewsets.ModelViewSet):
 class Bookviewset(viewsets.ModelViewSet):
     queryset=Book.objects.all()
     serializer_class=BookSerializer
+
+class Seatviewset(viewsets.ModelViewSet):
+    queryset=Seat.objects.all()
+    serializer_class=SeatSerializer

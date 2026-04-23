@@ -8,5 +8,6 @@ routers.register('modes/',Modeviewset),
 routers.register('modetype/',ModeTypeviewset),
 routers.register('routes/',Routeviewset),
 routers.register('bookings/',Bookviewset)
+routers.register('Seats/',Seatviewset)
 
 urlpatterns=routers.urls
