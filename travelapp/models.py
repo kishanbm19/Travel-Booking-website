@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 class Mode(models.Model):
     modes=models.CharField(max_length=100)
@@ -43,12 +43,13 @@ class Seat(models.Model):
         return f"{self.seat_no} "
     
 class Book(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
     mode=models.ForeignKey(ModeType,on_delete=models.CASCADE)
     route=models.ForeignKey(Route,on_delete=models.CASCADE)
 
     total_price=models.IntegerField(null=True)
     passengers=models.IntegerField(default=1)
-    seat=models.ForeignKey(Seat,on_delete=models.CASCADE,null=True,blank=True)
+    seat = models.ForeignKey(Seat, on_delete=models.CASCADE, null=True, blank=True)
    
 
     def calculate_price(self):
