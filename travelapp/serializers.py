@@ -24,7 +24,7 @@ class BookSerializer(serializers.ModelSerializer):
     
     class Meta:
         model=Book
-        fields=['user','mode','route','passengers','total_price','seat','message']
+        fields=['mode','route','passengers','total_price','seat','message']
         read_only_fields=['total_price','message','confirmation']
 
 class SeatSerializer(serializers.ModelSerializer):
@@ -44,7 +44,7 @@ class SeatSerializer(serializers.ModelSerializer):
 
         if (qs.exists()):
             raise serializers.ValidationError(
-                f"Seat {seat_no} is not available" )
+                f"Seat {seat_no} is not available"            )
         return data
 
 
