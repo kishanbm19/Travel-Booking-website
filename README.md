@@ -133,6 +133,13 @@ Still this is in development stage once I finished frontend,I will integerate wi
 👨‍💻 Author
 Kishan BM
 
+Screenshots
+<img width="1118" height="782" alt="image" src="https://github.com/user-attachments/assets/d1e19619-cbf7-47e2-a5d3-f25f539bf332" />
+<img width="959" height="692" alt="Screenshot 2026-04-28 192536" src="https://github.com/user-attachments/assets/5aecdc40-cf9b-416c-b789-29e0502de947" />
+
+
+
 📜 License
 this project is open source and free to use.
+
 
