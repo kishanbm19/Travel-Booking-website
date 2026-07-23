@@ -1,150 +1,241 @@
-# Travel-Booking-website
+# ✈️ ShubhYatra - Travel Booking Backend API (Django + DRF + MySQL)
 
+A **RESTful Travel Booking Backend API** built using **Django**, **Django REST Framework (DRF)**, and **MySQL**. The project enables users to browse travel routes, transport modes, seat availability, and book tickets through secure REST APIs. It supports JWT Authentication, CRUD operations, search, filtering, pagination, and automatic fare calculation. All APIs were developed and tested using **Postman**.
 
-A backend travel booking system built with Django and Django REST Framework that manages transport modes, routes, seats, and ticket bookings with automatic fare calculation.
+---
 
- Features
-Manage travel modes (Bus, Train, Flight, Cab, etc.)
-Add service types for each mode
-Create travel routes with distance and via points
-Manage seats for each route
-Prevent duplicate seat booking
-Automatic ticket price calculation
-REST API with CRUD operations
-Booking confirmation messages
-🛠️ Tech Stack
-Python
-Django
-Django REST Framework
-SQLite / MySQL
-📂 Project Structure
-travel_booking/
-│── models.py
-│── serializers.py
-│── viewsets.py
-│── urls.py
+# 📁 Project Structure
 
+```text
+Backend/
+├── travelapp/
+│   ├── migrations/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── routers.py
+│   ├── serializers.py
+│   ├── tests.py
+│   └── viewsets.py
+│
+├── shubhYatra/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+│
+├── manage.py
+├── requirements.txt
+└── README.md
+```
 
-🧩 Database Models
-1. Mode
-Stores travel categories.
+---
 
-Examples:
-Bus
-Train
-Flight
+# 🚀 Features
 
-2. ModeType
-Stores service type under each mode.
+- 🔐 JWT Authentication using Django REST Framework Simple JWT
+- 👤 User Registration & Login
+- 🚆 Travel Mode Management
+- 🚍 Mode Type Management
+- 🛣️ Route Management
+- 💺 Seat Availability & Booking
+- 🎫 Ticket Booking System
+- 💰 Automatic Fare Calculation
+- 🗄️ MySQL Database Integration
+- 🔗 RESTful APIs using Django REST Framework
+- ⚡ ModelSerializers for JSON Serialization
+- 🔄 RESTful CRUD APIs using DRF ModelViewSets & Routers
+- 🔍 Search using DRF SearchFilter
+- 🎯 Filtering using DjangoFilterBackend
+- 📄 Pagination for Efficient API Responses
+- 🧪 API Development & Testing using Postman
+- 🛠️ Django Admin Panel
 
-Examples:
-AC Sleeper Bus
-Express Train
-Economy Flight
+---
 
-Fields:
-modes
-service
-price_per_km
+# 📌 API Capabilities
 
+- 🔐 JWT Authentication
+- 👤 User Registration & Login
+- 🚍 Travel Booking CRUD Operations
+- 🔄 JSON Serialization
+- 🔍 Search
+- 🎯 Filtering
+- 📄 Pagination
+- 🔗 Foreign Key Relationships
+- 💰 Automatic Fare Calculation
+- 💺 Seat Availability Management
 
-3. Route
+---
+
+# 🛠️ Tech Stack
+
+- Python
+- Django
+- Django REST Framework (DRF)
+- MySQL
+- Simple JWT
+- Postman
+
+---
+
+# 📂 Database Models
+
+## Mode
+
+Stores available transport modes.
+
+**Fields**
+
+- Mode Name
+
+---
+
+## ModeType
+
+Stores transport services with pricing.
+
+**Fields**
+
+- Service
+- Mode
+- Price Per Kilometer
+
+---
+
+## Route
+
 Stores travel routes.
 
-Fields:
-source
-destination
-via
-distance
+**Fields**
 
+- Source
+- Via
+- Destination
+- Distance
 
-4. Seat
-Stores seat details.
+---
 
-Fields:
-mode
-route
-seat_no
-is_booked
+## Seat
 
+Stores seat availability.
 
-5. Book
-Stores booking information.
+**Fields**
 
-Fields:
-mode
-route
-passengers
-seat
-total_price
-💰 Price Calculation
-total_price = price_per_km × distance × passengers
+- Mode Type
+- Route
+- Seat Number
+- Booking Status
 
+---
 
-🔌 API Endpoints
-Endpoint	Description
-/modes/	Manage transport modes
-/modetype/	Manage services
-/routes/	Manage routes
-/Seats/	Manage seats
-/bookings/	Book tickets
-📥 Sample Booking Request
-POST /bookings/
+## Book
 
-{
-  "mode": 1,
-  "route": 1,
-  "passengers": 2,
-  "seat": 3
-}
-Response
-{
-  "mode": 1,
-  "route": 1,
-  "passengers": 2,
-  "seat": 3,
-  "total_price": 960,
-  "message": "Your ticket for route is successfully booked"
-}
-🔒 Validation
-Prevent Duplicate Seats
+Stores ticket booking information.
 
-Same seat number cannot be added twice for same route and mode.
+**Fields**
 
-unique_together = ['route', 'seat_no', 'mode']
+- Mode Type
+- Route
+- Seat
+- Number of Passengers
+- Total Price
 
+**Computed Properties**
 
+- Automatic Fare Calculation
+- Booking Confirmation
 
+---
 
-🌟 Future Improvements
-User Authentication
-Payment Gateway
-Cancel Booking
-Search API
-Admin Dashboard
-Booking History
-Email Confirmation
-QR Code Ticket\
+# 🔗 Database Relationships
 
-Still this is in development stage once I finished frontend,I will integerate with it.
+```text
+Mode
+   │
+   └──────< ModeType
+                 │
+                 ├──────< Seat
+                 │
+                 └──────< Book
 
+Route
+   │
+   ├──────< Seat
+   │
+   └──────< Book
+```
 
+---
 
-👨‍💻 Author
-Kishan BM
+# 🌐 API Endpoints
 
-Screenshots
-<img width="1118" height="782" alt="image" src="https://github.com/user-attachments/assets/d1e19619-cbf7-47e2-a5d3-f25f539bf332" />
-<img width="959" height="692" alt="Screenshot 2026-04-28 192536" src="https://github.com/user-attachments/assets/5aecdc40-cf9b-416c-b789-29e0502de947" />
-<img width="998" height="968" alt="image" src="https://github.com/user-attachments/assets/f7d0a12f-cef4-4c1d-8818-98a3c72331e9" />
-<img width="1101" height="630" alt="image" src="https://github.com/user-attachments/assets/18133d71-bd5a-4f71-b1fc-e409a3263ace" />
-<img width="1133" height="866" alt="image" src="https://github.com/user-attachments/assets/2568e90a-1ca3-450e-9995-16ff3c2d9878" />
+| Endpoint | Description |
+|----------|-------------|
+| `/mode/` | Manage Transport Modes |
+| `/modetype/` | Manage Mode Types |
+| `/route/` | Route CRUD Operations |
+| `/seat/` | Seat Availability Management |
+| `/book/` | Ticket Booking Management |
+| `/token/` | Generate JWT Access & Refresh Tokens |
+| `/token/refresh/` | Refresh JWT Access Token |
 
+---
 
+# ▶️ Application Workflow
 
+```text
+User Registration / Login
+          │
+          ▼
+JWT Authentication
+          │
+          ▼
+Browse Travel Modes
+          │
+          ▼
+Select Mode Type
+          │
+          ▼
+Search & Filter Routes
+          │
+          ▼
+View Available Seats
+          │
+          ▼
+Select Seat
+          │
+          ▼
+Calculate Fare
+          │
+          ▼
+Book Ticket
+          │
+          ▼
+Store Booking in MySQL Database
+          │
+          ▼
+View Booking Details
+```
 
+---
 
-📜 License
-this project is open source and free to use.
+# 🚀 Future Improvements
 
-
+- 💳 Online Payment Gateway Integration (Stripe/Razorpay)
+- 📧 Email Ticket Confirmation
+- 📱 SMS Notifications
+- 📍 Live Vehicle Tracking
+- ⭐ User Ratings & Reviews
+- ❤️ Favorite Routes
+- 📄 PDF Ticket Generation
+- 🌍 Multi-language Support
+- 🎟️ Coupon & Discount System
+- 👨‍💼 Role-Based Access Control (Admin, Operator & Passenger)
+- 🐳 Docker Containerization
+- ☁️ Cloud Deployment (AWS, Render, Railway)
+- 📖 API Documentation using Swagger/OpenAPI
+- 🧪 Unit & Integration Testing
+- ⚡ Redis Caching for Improved Performance
